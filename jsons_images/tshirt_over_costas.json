@@ -1,0 +1,103 @@
+{
+  "tipo": "imagem",
+  "categoria": "fotografia de produto / mockup de camiseta / costas",
+  "descricao": "Fotografia vertical em estúdio mostrando um homem adulto de costas, usando camiseta preta lisa oversized. A peça tem modelagem ampla, mangas largas e caimento solto no corpo. O fundo é branco/cinza claro, limpo, sem elementos adicionais.",
+  "formato": {
+    "orientacao": "vertical",
+    "proporcao_aproximada": "3:4",
+    "estilo": "fotografia realista de produto",
+    "qualidade": "alta, iluminação de estúdio, fundo neutro"
+  },
+  "personagem": {
+    "quantidade": 1,
+    "genero_aparente": "masculino",
+    "idade_aparente": "adulto jovem",
+    "posicao": "de costas para a câmera",
+    "postura": "em pé, braços relaxados ao lado do corpo",
+    "enquadramento": "da cabeça até parte das pernas",
+    "rosto": "não visível, apenas perfil parcial do lado direito"
+  },
+  "camiseta": {
+    "tipo": "camiseta oversized",
+    "vista": "costas",
+    "cor_base": "preta",
+    "gola": "gola redonda",
+    "mangas": "curtas e largas",
+    "caimento": "solto e amplo",
+    "comprimento": "abaixo da cintura",
+    "tecido_aparente": "algodão ou malha lisa",
+    "estampa_atual": "sem estampa, lisa",
+    "area_customizavel": {
+      "descricao": "área principal das costas da camiseta, centralizada entre a gola e a barra inferior",
+      "posicao": "centro das costas",
+      "limites_visuais": {
+        "superior": "abaixo da gola, respeitando a curvatura dos ombros",
+        "inferior": "acima da barra inferior da camiseta",
+        "esquerda": "antes da dobra lateral esquerda da camiseta",
+        "direita": "antes da dobra lateral direita da camiseta"
+      },
+      "uso_futuro": "substituir ou aplicar uma imagem/arte de camiseta de costas oversized",
+      "tipo_de_arte_esperada": "imagem frontal da arte das costas da camiseta, preferencialmente em PNG com fundo transparente ou arte limpa em alta resolução",
+      "ajuste_recomendado": {
+        "perspectiva": "acompanhar levemente a curvatura natural das costas",
+        "distorcao": "mínima, respeitando dobras e caimento do tecido",
+        "integração": "manter textura da camiseta, sombras naturais e iluminação original",
+        "opacidade": "100%, com blend realista ao tecido"
+      }
+    }
+  },
+  "ambiente": {
+    "local": "estúdio fotográfico",
+    "fundo": "branco/cinza claro uniforme",
+    "iluminacao": "suave e frontal/lateral, típica de foto de catálogo",
+    "sombras": "discretas, naturais"
+  },
+  "composicao": {
+    "angulo_camera": "traseiro, levemente acima da linha média das costas",
+    "distancia": "média",
+    "foco": "camiseta e corpo do modelo",
+    "profundidade_de_campo": "alta, fundo limpo e sem distrações",
+    "centralizacao": "modelo centralizado, com a camiseta ocupando a maior parte da imagem"
+  },
+  "cores_principais": [
+    "preto",
+    "branco",
+    "tons de pele",
+    "marrom claro do cabelo"
+  ],
+  "elementos_importantes": [
+    "camiseta preta lisa oversized",
+    "costas totalmente visíveis",
+    "fundo neutro",
+    "modelo masculino de costas",
+    "área central ampla para aplicação de arte"
+  ],
+  "restricoes_para_edicao_futura": {
+    "preservar": [
+      "posição do modelo",
+      "fundo branco/cinza claro",
+      "iluminação original",
+      "dobras e textura da camiseta",
+      "contorno natural dos ombros, mangas e barra"
+    ],
+    "alterar_somente": [
+      "arte/estampa aplicada nas costas da camiseta",
+      "cor da camiseta, caso solicitado explicitamente"
+    ],
+    "nao_alterar": [
+      "rosto/cabeça do modelo",
+      "braços",
+      "calça",
+      "proporção corporal",
+      "enquadramento geral"
+    ]
+  },
+  "prompt_base_para_edicao_futura": "Usar esta imagem como mockup realista de uma camiseta oversized vista de costas. Aplicar a arte fornecida pelo usuário na área central das costas da camiseta, mantendo a perspectiva natural do tecido, as sombras, dobras, textura da malha e iluminação original. A arte deve parecer impressa na camiseta, não sobreposta artificialmente. Preservar o modelo, fundo, pose, enquadramento e demais elementos da imagem.",
+  "campo_customizavel_para_arte_futura": {
+    "imagem_da_camiseta_costas_oversized": null,
+    "descricao_da_arte": null,
+    "posicao_preferencial": "centralizada nas costas",
+    "tamanho_preferencial": "grande, ocupando boa parte da área superior e média das costas, sem encostar na gola, mangas ou barra inferior",
+    "modo_de_aplicacao": "mockup realista com integração ao tecido"
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "tipo": "imagem_base_para_troca_de_camiseta",
+  "categoria": "foto de modelo / mockup de vestuário / camiseta masculina",
+  "objetivo": "Usar esta imagem como referência de pose, corpo, iluminação e enquadramento para futura substituição da camiseta por outra camiseta enviada separadamente em imagem frontal.",
+  "imagem_original": {
+    "descricao_geral": "Homem adulto em pé, fotografado em estúdio ou fundo branco, usando camiseta lisa marrom/caramelo, calça escura parcialmente visível e relógio no pulso esquerdo. O modelo está com o tronco de frente para a câmera e a cabeça levemente virada para o lado esquerdo da imagem.",
+    "orientacao": "vertical",
+    "proporcao_aproximada": "2:3",
+    "fundo": {
+      "tipo": "fundo branco limpo",
+      "detalhes": "sem cenário, sem objetos no fundo, aparência de fotografia de catálogo"
+    },
+    "estilo": {
+      "tipo": "fotografia realista de produto/moda",
+      "qualidade": "alta",
+      "uso_recomendado": "mockup de camiseta, catálogo de produto, ecommerce, anúncio de vestuário"
+    }
+  },
+  "modelo": {
+    "genero_aparente": "masculino",
+    "faixa_etaria_aparente": "jovem adulto",
+    "pose": {
+      "corpo": "em pé, tronco frontal, braços relaxados ao lado do corpo",
+      "cabeca": "virada levemente para a esquerda da imagem",
+      "olhar": "direcionado para fora do quadro, à esquerda",
+      "expressao": "neutra"
+    },
+    "enquadramento": {
+      "tipo": "meio corpo / corpo parcial",
+      "visivel": "da cabeça até abaixo da cintura, com parte das mãos visíveis",
+      "centralizacao": "modelo centralizado"
+    }
+  },
+  "camiseta_atual": {
+    "tipo": "camiseta masculina básica",
+    "manga": "curta",
+    "gola": "redonda",
+    "caimento": "regular/slim, ajustada ao corpo sem ser extremamente apertada",
+    "cor": "marrom caramelo / bege escuro",
+    "textura": "malha lisa, sem estampa visível",
+    "dobras_e_sombras": {
+      "regiao_peitoral": "leve sombra e textura natural do tecido",
+      "laterais": "dobras discretas próximas à cintura e axilas",
+      "mangas": "ajustadas aos braços com dobras sutis",
+      "barra": "reta, visível na parte inferior da camiseta"
+    }
+  },
+  "substituicao_camiseta": {
+    "customizavel": true,
+    "imagem_camiseta_frente": {
+      "status": "aguardando imagem",
+      "descricao": "Imagem frontal da nova camiseta que será usada para substituir a camiseta atual.",
+      "requisitos_recomendados": {
+        "angulo": "frontal",
+        "fundo": "preferencialmente branco ou transparente",
+        "qualidade": "alta resolução",
+        "camiseta": "sem corpo, ou em mockup frontal limpo, para facilitar adaptação",
+        "iluminacao": "uniforme, sem sombras muito fortes"
+      }
+    },
+    "instrucoes_para_troca": {
+      "manter": [
+        "rosto do modelo",
+        "cabelo",
+        "pescoço",
+        "braços",
+        "mãos",
+        "relógio",
+        "calça",
+        "pose original",
+        "fundo branco",
+        "iluminação geral",
+        "proporções corporais"
+      ],
+      "alterar": [
+        "somente a camiseta atual"
+      ],
+      "resultado_esperado": "Aplicar a nova camiseta sobre o corpo do modelo de forma realista, respeitando perspectiva, volume do tronco, gola, mangas, dobras naturais do tecido, sombras, iluminação e caimento original.",
+      "restricoes": [
+        "não alterar o rosto do modelo",
+        "não alterar a pose",
+        "não mudar o fundo",
+        "não deformar braços, pescoço ou mãos",
+        "não criar estampas ou cores que não existam na imagem da camiseta enviada",
+        "não remover o relógio"
+      ]
+    }
+  },
+  "prompt_base_para_edicao_futura": {
+    "descricao": "Usar a imagem do homem como base. Substituir apenas a camiseta atual pela camiseta da imagem frontal enviada pelo usuário. Manter o modelo, pose, rosto, braços, relógio, calça, fundo branco e iluminação original. Adaptar a nova camiseta ao corpo do modelo com realismo, preservando gola, mangas, caimento, textura, sombras e dobras naturais. Não alterar nenhum outro elemento da imagem.",
+    "campo_customizavel": {
+      "nova_camiseta_referencia": "{{INSERIR_IMAGEM_DA_CAMISETA_FRENTE_AQUI}}"
+    }
+  }
+}

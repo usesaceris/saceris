@@ -1,0 +1,118 @@
+{
+  "tipo": "imagem",
+  "categoria": "mockup / fotografia de moda streetwear / camiseta costas",
+  "descricao": "Homem adulto visto de costas em ambiente urbano desfocado, usando camiseta oversized preta com estampa grande, colorida e centralizada nas costas. A composição valoriza a aplicação gráfica da camiseta, com foco no caimento largo, nas mangas amplas e na arte impressa posicionada na região central das costas.",
+  "formato": {
+    "orientacao": "vertical",
+    "proporcao_aproximada": "4:5",
+    "estilo": "fotografia realista com mockup de camiseta",
+    "qualidade": "alta, fundo desfocado, foco principal no modelo e na camiseta"
+  },
+  "ambiente": {
+    "local": "rua urbana / centro da cidade",
+    "fundo": "fachadas de prédios e vitrines desfocadas",
+    "iluminacao": "luz natural suave",
+    "profundidade_de_campo": "baixa, com fundo em blur/bokeh"
+  },
+  "modelo": {
+    "genero_aparente": "masculino",
+    "idade_aparente": "adulto jovem",
+    "posicao": "de costas para a câmera",
+    "pose": "em pé ou caminhando levemente, braços relaxados ao lado do corpo",
+    "aparencia": {
+      "cabelo": "curto nas laterais, mais volumoso no topo",
+      "acessorios": [
+        "óculos escuros",
+        "relógio ou pulseira metálica"
+      ],
+      "tatuagens": [
+        "pescoço",
+        "braços"
+      ]
+    }
+  },
+  "roupa": {
+    "camiseta": {
+      "tipo": "camiseta oversized",
+      "cor_base": "preta",
+      "vista": "costas",
+      "caimento": "largo, urbano, streetwear",
+      "mangas": "amplas, comprimento médio",
+      "barra": "reta, abaixo da linha da cintura",
+      "customizavel": true,
+      "campo_para_troca_futura": {
+        "nome": "imagem_camiseta_costas",
+        "descricao": "Imagem/arte futura que deverá substituir a camiseta atual ou a estampa das costas.",
+        "modo_de_aplicacao": "aplicar a nova arte/camiseta na região das costas, mantendo perspectiva, dobras, caimento do tecido, iluminação e proporção realista",
+        "preservar": [
+          "pose do modelo",
+          "ângulo de câmera",
+          "fundo urbano desfocado",
+          "iluminação original",
+          "proporção oversized da camiseta"
+        ]
+      }
+    },
+    "calca": {
+      "tipo": "calça clara",
+      "cor": "bege claro / off-white",
+      "estilo": "casual urbano"
+    }
+  },
+  "estampa_atual": {
+    "posicao": "centralizada nas costas da camiseta",
+    "tamanho": "grande, ocupando boa parte da área das costas",
+    "estilo": "ilustração colorida estilo street art / doodle / pop art",
+    "cores_predominantes": [
+      "amarelo",
+      "azul",
+      "roxo",
+      "vermelho",
+      "branco",
+      "preto"
+    ],
+    "elementos_visuais": [
+      "tipografia grande e colorida",
+      "formas geométricas",
+      "objetos urbanos",
+      "elementos esportivos",
+      "ícones gráficos",
+      "linhas e rabiscos decorativos"
+    ],
+    "texto_visivel": [
+      "CAP",
+      "DREAMS",
+      "GO",
+      "VEIPOO"
+    ],
+    "acabamento": "impressão chapada colorida, com contraste forte sobre camiseta preta"
+  },
+  "composicao": {
+    "enquadramento": "meio corpo de costas, da cabeça até parte das pernas",
+    "angulo_camera": "levemente atrás e na altura das costas",
+    "foco_principal": "camiseta e estampa traseira",
+    "margens": "modelo centralizado, com espaço urbano ao redor",
+    "sensacao_visual": "moderna, urbana, streetwear, lifestyle"
+  },
+  "instrucoes_para_edicao_futura": {
+    "objetivo": "trocar a camiseta ou a arte das costas por uma nova imagem fornecida posteriormente",
+    "manter_realismo": true,
+    "ajustes_necessarios": [
+      "adaptar a nova imagem à curvatura das costas",
+      "respeitar dobras e sombras do tecido",
+      "corrigir perspectiva conforme o corpo do modelo",
+      "preservar iluminação e textura da camiseta",
+      "evitar aparência colada ou plana"
+    ],
+    "nao_alterar": [
+      "rosto/cabeça do modelo",
+      "tatuagens",
+      "óculos",
+      "calça",
+      "pose",
+      "fundo",
+      "proporção geral da imagem"
+    ]
+  },
+  "prompt_base_para_geracao_ou_edicao": "Fotografia realista vertical de moda streetwear, homem adulto visto de costas em uma rua urbana desfocada, usando camiseta oversized preta com caimento largo. A camiseta possui uma grande estampa colorida centralizada nas costas, em estilo street art/pop art/doodle, com cores vibrantes e visual moderno. Fundo urbano com prédios e vitrines desfocados, luz natural suave, profundidade de campo baixa. Manter foco na camiseta e na arte das costas, preservando realismo, textura do tecido, sombras, dobras e perspectiva."
+}

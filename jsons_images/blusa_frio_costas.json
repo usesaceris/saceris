@@ -1,0 +1,104 @@
+{
+  "tipo": "imagem",
+  "categoria": "foto de produto / vestuário / blusa de frio costas",
+  "descricao_geral": "Imagem vertical em fundo branco mostrando um homem adulto de costas, usando uma blusa de frio azul-marinho escuro, sem estampa visível, com caimento reto e mangas longas. A peça aparece em vista traseira completa, ideal para substituição futura da blusa por outra imagem de referência.",
+  "orientacao": "vertical",
+  "proporcao_aproximada": "9:16",
+  "fundo": {
+    "tipo": "fundo liso",
+    "cor": "branco",
+    "iluminacao": "uniforme de estúdio",
+    "sombras": "mínimas"
+  },
+  "modelo": {
+    "genero_aparente": "masculino",
+    "idade_aparente": "adulto",
+    "posicao": "em pé",
+    "angulo": "costas",
+    "postura": "reta, braços relaxados ao lado do corpo",
+    "cabeca": {
+      "visibilidade": "parcial, vista traseira",
+      "cabelo": "curto, escuro",
+      "detalhes_visiveis": "tatuagem na nuca"
+    },
+    "rosto": {
+      "visivel": false
+    }
+  },
+  "roupa_atual": {
+    "tipo": "blusa de frio",
+    "vista": "costas",
+    "cor": "azul-marinho escuro / mescla",
+    "modelagem": "regular",
+    "mangas": "longas",
+    "gola": "gola redonda ou canelada baixa",
+    "barra": "canelada",
+    "punhos": "canelados",
+    "estampa": {
+      "existe": false,
+      "descricao": "sem logo, sem texto e sem arte visível nas costas"
+    },
+    "textura": "tecido de moletom ou malha pesada com leve mescla"
+  },
+  "parte_inferior": {
+    "tipo": "calça ou bermuda escura",
+    "cor": "preto",
+    "visibilidade": "parcial na parte inferior da imagem"
+  },
+  "composicao": {
+    "enquadramento": "modelo centralizado, corpo visto de costas da cabeça até parte das pernas",
+    "distancia": "plano médio/longo",
+    "foco": "roupa e costas do modelo",
+    "uso_recomendado": "mockup ou troca de roupa mantendo pose, corpo e fundo"
+  },
+  "area_customizavel_para_troca_da_blusa": {
+    "ativo": true,
+    "tipo": "substituicao_de_roupa",
+    "peca_alvo": "blusa de frio costas",
+    "regiao_alvo": {
+      "descricao": "toda a blusa visível nas costas do modelo, incluindo gola, ombros, mangas, corpo, punhos e barra",
+      "manter": [
+        "pose do modelo",
+        "fundo branco",
+        "cabeça e pescoço",
+        "tatuagem da nuca",
+        "mãos",
+        "calça preta",
+        "proporção corporal",
+        "iluminação de estúdio"
+      ],
+      "substituir": [
+        "cor da blusa",
+        "textura da blusa",
+        "estampa ou arte das costas",
+        "acabamento visual da peça"
+      ]
+    },
+    "imagem_referencia_futura": {
+      "esperada": true,
+      "descricao": "imagem da nova blusa de frio vista de costas, preferencialmente em fundo neutro, com a arte/estampa final visível",
+      "campo_para_inserir_imagem": "{{IMAGEM_DA_BLUSA_DE_FRIO_COSTAS}}"
+    },
+    "instrucoes_para_edicao_futura": "Substituir somente a blusa de frio atual pela blusa da imagem de referência, preservando a pose do modelo, fundo branco, iluminação, cabeça, nuca, tatuagem, mãos e calça. A nova blusa deve se ajustar naturalmente ao corpo, respeitando dobras, volume, caimento, punhos, gola e barra."
+  },
+  "prompt_base_para_edicao_futura": "Usar esta imagem como base. Manter o homem de costas, a pose, o fundo branco, a iluminação de estúdio, a cabeça, a tatuagem da nuca, as mãos e a calça preta. Substituir apenas a blusa de frio atual pela blusa de frio de costas fornecida na referência {{IMAGEM_DA_BLUSA_DE_FRIO_COSTAS}}. Adaptar a nova peça ao corpo com caimento realista, preservando proporções, sombras, dobras, gola, mangas, punhos e barra. Não alterar o rosto, corpo, fundo ou demais elementos da imagem.",
+  "restricoes": {
+    "nao_alterar": [
+      "modelo",
+      "posição corporal",
+      "fundo",
+      "iluminação",
+      "pescoço e tatuagem",
+      "mãos",
+      "calça"
+    ],
+    "evitar": [
+      "distorções na peça",
+      "mudança no formato corporal",
+      "alteração da pose",
+      "mudança de fundo",
+      "arte desalinhada nas costas",
+      "textura artificial"
+    ]
+  }
+}

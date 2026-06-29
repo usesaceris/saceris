@@ -1,0 +1,124 @@
+{
+  "tipo": "imagem",
+  "categoria": "foto de produto / mockup de vestuário / blusa de frio frente",
+  "descricao_geral": "Imagem frontal de um homem adulto usando uma blusa de frio lisa, de manga longa, em cor clara, sobre fundo branco. A peça está sendo apresentada como base para mockup ou troca futura da estampa/modelo da blusa.",
+  "formato": {
+    "orientacao": "quadrada",
+    "proporcao_aproximada": "1:1",
+    "resolucao_aproximada": "600x600 px",
+    "fundo": "branco sólido",
+    "estilo": "fotografia realista de produto",
+    "qualidade": "boa, com iluminação uniforme e foco no vestuário"
+  },
+  "modelo": {
+    "genero_aparente": "masculino",
+    "pose": "em pé, de frente para a câmera",
+    "expressao": "sorrindo",
+    "enquadramento": "corpo da cabeça até abaixo da cintura",
+    "bracos": "relaxados ao lado do corpo",
+    "maos": "visíveis próximas à barra da blusa"
+  },
+  "vestuario_atual": {
+    "peca_principal": {
+      "tipo": "blusa de frio / manga longa",
+      "vista": "frente",
+      "modelagem": "reta, levemente ampla",
+      "caimento": "solto no corpo",
+      "manga": "longa",
+      "gola": "redonda",
+      "cor": "cinza claro / branco acinzentado",
+      "estampa": "sem estampa",
+      "textura": "malha lisa",
+      "barra": "reta, terminando abaixo da cintura",
+      "punhos": "mangas com leve franzido próximo aos punhos",
+      "observacao": "a blusa atual deve ser tratada como área substituível no futuro"
+    },
+    "parte_inferior": {
+      "tipo": "calça ou bermuda escura",
+      "cor": "preto",
+      "visibilidade": "parcial, apenas região inferior do enquadramento"
+    }
+  },
+  "area_customizavel_para_troca_da_blusa": {
+    "campo_editavel": true,
+    "nome_do_campo": "nova_blusa_frente",
+    "descricao": "Campo reservado para substituir a blusa de frio frontal atual por uma nova imagem de blusa de frio, mantendo o mesmo modelo, pose, fundo branco, iluminação e proporção corporal.",
+    "entrada_futura_esperada": {
+      "tipo": "imagem de referência",
+      "conteudo": "blusa de frio frente",
+      "preferencia": "imagem frontal da peça, sem perspectiva extrema, com boa iluminação",
+      "aplicacao": "usar a imagem enviada como textura/modelo da nova blusa no corpo do modelo"
+    },
+    "instrucoes_de_substituicao": {
+      "manter": [
+        "rosto do modelo",
+        "pose original",
+        "mãos e braços na mesma posição",
+        "fundo branco",
+        "proporção do corpo",
+        "iluminação realista",
+        "sombras naturais",
+        "enquadramento quadrado"
+      ],
+      "alterar": [
+        "cor da blusa",
+        "estampa da blusa",
+        "textura da blusa",
+        "design frontal da blusa",
+        "detalhes visuais da peça enviada como referência"
+      ],
+      "restricoes": [
+        "não alterar o rosto",
+        "não alterar a anatomia",
+        "não distorcer a estampa",
+        "não mudar o fundo",
+        "não transformar em ilustração",
+        "não trocar a pose do modelo"
+      ]
+    },
+    "mascara_sugerida": {
+      "regiao": "somente a blusa de frio visível na frente do corpo",
+      "incluir": [
+        "tronco",
+        "mangas",
+        "gola",
+        "punhos",
+        "barra inferior da blusa"
+      ],
+      "excluir": [
+        "rosto",
+        "pescoço visível",
+        "mãos",
+        "calça preta",
+        "fundo branco"
+      ]
+    }
+  },
+  "iluminacao": {
+    "tipo": "estúdio simples",
+    "direcao": "frontal e uniforme",
+    "sombras": "suaves",
+    "contraste": "baixo a médio",
+    "temperatura": "neutra"
+  },
+  "composicao": {
+    "posicionamento_do_modelo": "centralizado",
+    "margens": "espaço branco ao redor do corpo",
+    "foco_visual": "blusa de frio frontal",
+    "uso_recomendado": [
+      "mockup de produto",
+      "catálogo de roupas",
+      "e-commerce",
+      "pré-visualização de estampa",
+      "troca de peça por imagem de referência"
+    ]
+  },
+  "prompt_base_para_edicao_futura": "Substituir somente a blusa de frio frontal usada pelo modelo pela nova blusa enviada como referência em {{nova_blusa_frente}}. Manter o mesmo homem, rosto, pose, mãos, fundo branco, iluminação de estúdio, proporção corporal e aparência fotográfica realista. Aplicar a nova blusa respeitando o caimento natural no corpo, mangas longas, gola, punhos, sombras e dobras do tecido. Não alterar rosto, mãos, calça, fundo ou enquadramento.",
+  "variaveis_customizaveis": {
+    "nova_blusa_frente": "{{INSERIR_IMAGEM_DA_BLUSA_DE_FRIO_FRENTE_AQUI}}",
+    "cor_da_blusa": "{{opcional}}",
+    "estampa_ou_logo": "{{opcional}}",
+    "tipo_de_tecido": "{{opcional}}",
+    "ajuste_de_modelagem": "{{opcional: justa, regular, oversized}}"
+  }
+}
