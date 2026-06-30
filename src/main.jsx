@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { ArrowUpRight, ChevronRight, Instagram, MessageCircle, Volume2, VolumeX } from "lucide-react";
+import { ArrowUpRight, ChevronRight, Instagram, MessageCircle, Search, ShoppingBag, Volume2, VolumeX } from "lucide-react";
 import "./styles.css";
 import { ProductStory3D } from "./components/ProductStory3D.jsx";
 
@@ -18,7 +18,7 @@ import peniel from "../assets/tshirts/peniel.png";
 import theKing from "../assets/tshirts/the_king.png";
 import yeshua33 from "../assets/tshirts/yeshua_33.png";
 
-const WHATSAPP_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER || "";
+const WHATSAPP_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER || "5519982214588";
 
 const artworks = [
   { id: "the-king", name: "THE KING", verse: "Reino, honra e eternidade.", detail: "Uma peça central para quem quer uma arte cristã com presença de capa.", image: theKing },
@@ -142,8 +142,18 @@ function HeroCarousel({ activeIndex }) {
 
 function App() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
   const { audioRef, playing, toggle } = useIntroMusic();
   const active = artworks[activeIndex];
+  const normalizedSearch = searchTerm.trim().toLowerCase();
+  const visibleArtworks = useMemo(() => (
+    normalizedSearch
+      ? artworks.filter((art) => `${art.name} ${art.verse} ${art.detail}`.toLowerCase().includes(normalizedSearch))
+      : artworks
+  ), [normalizedSearch]);
+  const searchResultLabel = normalizedSearch
+    ? `${visibleArtworks.length} ${visibleArtworks.length === 1 ? "resultado" : "resultados"}`
+    : "Buscar artes";
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -153,9 +163,20 @@ function App() {
     return () => window.clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    if (!normalizedSearch || visibleArtworks.length === 0) return;
+    const nextIndex = artworks.findIndex((item) => item.id === visibleArtworks[0].id);
+    if (nextIndex >= 0) setActiveIndex(nextIndex);
+  }, [normalizedSearch, visibleArtworks]);
+
   const selectArt = (art) => {
     const nextIndex = artworks.findIndex((item) => item.id === art.id);
     if (nextIndex >= 0) setActiveIndex(nextIndex);
+  };
+
+  const showSearchResults = (event) => {
+    event.preventDefault();
+    document.getElementById("colecao")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
@@ -164,6 +185,21 @@ function App() {
 
       <div className="intro" aria-hidden="true">
         <div className="introFlameField" />
+        <div className="introEmbers">
+          {Array.from({ length: 18 }).map((_, index) => (
+            <span
+              key={index}
+              style={{
+                "--ember-x": `${10 + ((index * 37) % 80)}%`,
+                "--ember-y": `${(index * 11) % 18}%`,
+                "--ember-delay": `${0.35 + (index % 9) * 0.16}s`,
+                "--ember-duration": `${2.5 + (index % 5) * 0.32}s`,
+                "--ember-size": `${0.12 + (index % 4) * 0.045}rem`,
+                "--ember-drift": `${((index * 17) % 28) - 14}px`,
+              }}
+            />
+          ))}
+        </div>
         <IntroBrand />
       </div>
 
@@ -171,6 +207,33 @@ function App() {
         <a href="#top" aria-label="Início">
           <Mark compact />
         </a>
+        <form className="navCommerce" aria-label="Compra e busca" onSubmit={showSearchResults}>
+          <a className="buyNow" href={whatsappHref("pedido SACERIS")} target="_blank" rel="noreferrer">
+            <ShoppingBag size={17} />
+            Compre aqui
+          </a>
+          <label className="searchBox">
+            <Search size={17} />
+            <input
+              type="search"
+              placeholder="Buscar arte"
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+            />
+            {searchTerm ? (
+              <button className="clearSearch" type="button" onClick={() => setSearchTerm("")} aria-label="Limpar busca">
+                ×
+              </button>
+            ) : null}
+          </label>
+          <button className="searchFeedback" type="submit">
+            {searchResultLabel}
+          </button>
+          <a className="resellerLink" href={whatsappHref("revenda SACERIS")} target="_blank" rel="noreferrer">
+            Seja revendedor
+            <ArrowUpRight size={15} />
+          </a>
+        </form>
         <div className="navLinks">
           <a href="#colecao">Artes</a>
           <a href="#manifesto">Manifesto</a>
@@ -186,9 +249,9 @@ function App() {
         <div className="haloGrid" />
         <div className="flameVeil" aria-hidden="true" />
         <div className="heroCopy">
-          <p className="eyebrow">Camisas cristãs premium</p>
-          <h1>Sua camisa fala antes de você.</h1>
-          <p className="lead">Artes de fé com peso visual, acabamento editorial e presença para quem escolhe se destacar.</p>
+          <p className="eyebrow">Estampas cristãs premium</p>
+          <h1>Criamos estampas únicas para camisetas.</h1>
+          <p className="lead">Estampas que expressam sua personalidade. SACERIS, estilo que fala por você.</p>
           <div className="heroActions">
             <a className="primaryButton" href="#colecao">
               Ver artes
@@ -217,6 +280,20 @@ function App() {
         </div>
       </section>
 
+      <section className="aboutSaceris" id="sobre">
+        <div className="aboutIntro">
+          <p className="eyebrow">O que é a SACERIS?</p>
+          <h2>SACERIS não nasceu da moda. Nasceu de um chamado.</h2>
+        </div>
+        <div className="aboutText">
+          <p>Em um tempo onde tudo é tendência, nós escolhemos identidade.</p>
+          <p>Não vestimos apenas tecido. Vestimos propósito.</p>
+          <p>Cada estampa carrega uma mensagem. Cada detalhe carrega fé. Cada peça carrega posicionamento.</p>
+          <p>Somos rua. Somos fé. Somos movimento.</p>
+          <strong>Fé nas ruas. Identidade no peito.</strong>
+        </div>
+      </section>
+
       <ProductStory3D />
 
       <section className="collection" id="colecao">
@@ -242,8 +319,15 @@ function App() {
           </div>
         </div>
 
+        {normalizedSearch ? (
+          <div className="searchNotice">
+            <span>{visibleArtworks.length} {visibleArtworks.length === 1 ? "resultado encontrado" : "resultados encontrados"} para “{searchTerm}”</span>
+            <button type="button" onClick={() => setSearchTerm("")}>Limpar</button>
+          </div>
+        ) : null}
+
         <div className="gallery">
-          {artworks.map((art) => (
+          {visibleArtworks.map((art) => (
             <article className={`artCard ${active.id === art.id ? "isActive" : ""}`} key={art.id} onMouseEnter={() => selectArt(art)} onFocus={() => selectArt(art)} tabIndex="0">
               <ProductArt art={art} />
               <div className="cardCopy">
@@ -257,6 +341,12 @@ function App() {
               </div>
             </article>
           ))}
+          {visibleArtworks.length === 0 ? (
+            <div className="emptySearch">
+              <p>Nenhuma arte encontrada.</p>
+              <button type="button" onClick={() => setSearchTerm("")}>Limpar busca</button>
+            </div>
+          ) : null}
         </div>
       </section>
 
