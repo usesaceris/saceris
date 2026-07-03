@@ -1,24 +1,26 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { ArrowUpRight, ChevronRight, Instagram, MessageCircle, Search, ShoppingBag, Volume2, VolumeX } from "lucide-react";
 import "./styles.css";
-import { ProductStory3D } from "./components/ProductStory3D.jsx";
 
 import sacerisSymbol from "../assets/logo.png";
 import sacerisWordmark from "../assets/escrita.png";
 import introMusic from "../assets/intro_music.mp3";
-import coldHero from "../assets/frio/cria_em_mim_um_coracao_puro.png";
-import cordeiroDeDeus from "../assets/tshirts/cordeiro_de_deus.png";
-import eleNaoEstaAqui from "../assets/tshirts/ele_nao_esta_aqui.png";
-import eleSabia from "../assets/tshirts/ele_sabia.png";
-import eleVive from "../assets/tshirts/ele_vive.png";
-import eliEli from "../assets/tshirts/eli_eli_lama_samabacthani.png";
-import jesusIsStillKing from "../assets/tshirts/jesus_is_still_king.png";
-import peniel from "../assets/tshirts/peniel.png";
-import theKing from "../assets/tshirts/the_king.png";
-import yeshua33 from "../assets/tshirts/yeshua_33.png";
+import coldHero from "../assets/optimized/cria_em_mim_um_coracao_puro.webp";
+import cordeiroDeDeus from "../assets/optimized/cordeiro_de_deus.webp";
+import eleNaoEstaAqui from "../assets/optimized/ele_nao_esta_aqui.webp";
+import eleSabia from "../assets/optimized/ele_sabia.webp";
+import eleVive from "../assets/optimized/ele_vive.webp";
+import eliEli from "../assets/optimized/eli_eli_lama_samabacthani.webp";
+import jesusIsStillKing from "../assets/optimized/jesus_is_still_king.webp";
+import peniel from "../assets/optimized/peniel.webp";
+import theKing from "../assets/optimized/the_king.webp";
+import yeshua33 from "../assets/optimized/yeshua_33.webp";
+
+const ProductStory3D = lazy(() => import("./components/ProductStory3D.jsx").then((module) => ({ default: module.ProductStory3D })));
 
 const WHATSAPP_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER || "5519982214588";
+const DEFAULT_PAYMENT_URL = import.meta.env.VITE_MERCADO_PAGO_URL || "https://mpago.la/19P6WnE";
 
 const artworks = [
   { id: "the-king", name: "THE KING", verse: "Reino, honra e eternidade.", detail: "Uma peça central para quem quer uma arte cristã com presença de capa.", image: theKing },
@@ -30,6 +32,12 @@ const artworks = [
   { id: "cordeiro-de-deus", name: "CORDEIRO DE DEUS", verse: "Sacrifício, pureza e majestade.", detail: "Arte simbólica para uma presença mais clássica dentro da coleção.", image: cordeiroDeDeus },
   { id: "ele-nao-esta-aqui", name: "ELE NÃO ESTÁ AQUI", verse: "Ressurreição como manifesto.", detail: "Frase forte e composição enxuta para uma leitura de impacto.", image: eleNaoEstaAqui },
   { id: "eli-eli", name: "ELI ELI", verse: "Entrega até o último fôlego.", detail: "Arte dramática para uma composição de costas com leitura intensa.", image: eliEli },
+];
+
+const essentialPieces = [
+  { name: "Essencial Preta", material: "Malha de entrada", fit: "Uso diário", art: artworks[1] },
+  { name: "Essencial Branca", material: "Base leve", fit: "Eventos e grupos", art: artworks[5] },
+  { name: "Essencial Drop", material: "Preço reduzido", fit: "Pedidos em volume", art: artworks[7] },
 ];
 
 const tickerItems = ["identidade", "propósito", "presença", "fé", "arte", "autoridade", "chama", "reino"];
@@ -92,6 +100,10 @@ function whatsappHref(artName) {
   return WHATSAPP_NUMBER ? `https://wa.me/${WHATSAPP_NUMBER}?text=${text}` : `https://wa.me/?text=${text}`;
 }
 
+function paymentHref(art) {
+  return art?.paymentUrl || DEFAULT_PAYMENT_URL;
+}
+
 function Mark({ compact = false }) {
   return (
     <div className={compact ? "mark markCompact" : "mark"} aria-label="SACERIS">
@@ -114,8 +126,66 @@ function ProductArt({ art, featured = false }) {
   return (
     <div className={`shirt ${featured ? "shirtFeatured" : ""}`}>
       <span className="shirtEmbers" aria-hidden="true" />
-      <img src={art.image} alt={`Camiseta SACERIS - ${art.name}`} />
+      <img src={art.image} alt={`Camiseta SACERIS - ${art.name}`} loading="lazy" decoding="async" />
     </div>
+  );
+}
+
+function ProductStoryPlaceholder({ observeRef }) {
+  return (
+    <section className="productStory3d productStoryPlaceholder" ref={observeRef}>
+      <div className="storySticky">
+        <div className="storyBackdrop" />
+        <div className="storyHeader">
+          <p className="eyebrow">Produto em foco</p>
+          <h2>Cada detalhe da SACERIS em movimento.</h2>
+        </div>
+        <div className="storyCanvasWrap">
+          <div className="storyLoadingSeal">
+            <img src={sacerisSymbol} alt="" />
+            <span>Carregando experiência 3D</span>
+          </div>
+          <div className="storyGlow" />
+        </div>
+        <div className="storyProgress">
+          <span>0%</span>
+          <div>
+            <i style={{ transform: "scaleX(0)" }} />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DeferredProductStory3D() {
+  const placeholderRef = useRef(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    const section = placeholderRef.current;
+    if (!section || shouldLoad) return undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "1400px 0px" }
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, [shouldLoad]);
+
+  if (!shouldLoad) return <ProductStoryPlaceholder observeRef={placeholderRef} />;
+
+  return (
+    <Suspense fallback={<ProductStoryPlaceholder />}>
+      <ProductStory3D />
+    </Suspense>
   );
 }
 
@@ -208,9 +278,9 @@ function App() {
           <Mark compact />
         </a>
         <form className="navCommerce" aria-label="Compra e busca" onSubmit={showSearchResults}>
-          <a className="buyNow" href={whatsappHref("pedido SACERIS")} target="_blank" rel="noreferrer">
+          <a className="buyNow" href={paymentHref(active)} target="_blank" rel="noreferrer">
             <ShoppingBag size={17} />
-            Compre aqui
+            Comprar agora
           </a>
           <label className="searchBox">
             <Search size={17} />
@@ -236,6 +306,7 @@ function App() {
         </form>
         <div className="navLinks">
           <a href="#colecao">Artes</a>
+          <a href="#essencial">Essencial</a>
           <a href="#manifesto">Manifesto</a>
           <a href="https://www.instagram.com/usesaceris/" target="_blank" rel="noreferrer">
             <Instagram size={17} />
@@ -253,11 +324,15 @@ function App() {
           <h1>Criamos estampas únicas para camisetas.</h1>
           <p className="lead">Estampas que expressam sua personalidade. SACERIS, estilo que fala por você.</p>
           <div className="heroActions">
-            <a className="primaryButton" href="#colecao">
+            <a className="primaryButton" href={paymentHref(active)} target="_blank" rel="noreferrer">
+              Comprar agora
+              <ShoppingBag size={18} />
+            </a>
+            <a className="ghostButton" href="#colecao">
               Ver artes
               <ChevronRight size={18} />
             </a>
-            <a className="ghostButton" href={whatsappHref("coleção SACERIS")} target="_blank" rel="noreferrer">Chamar no WhatsApp</a>
+            <a className="ghostButton" href={whatsappHref("coleção SACERIS")} target="_blank" rel="noreferrer">Tirar d&uacute;vida</a>
           </div>
         </div>
 
@@ -294,7 +369,7 @@ function App() {
         </div>
       </section>
 
-      <ProductStory3D />
+      <DeferredProductStory3D />
 
       <section className="collection" id="colecao">
         <div className="sectionHead">
@@ -313,7 +388,7 @@ function App() {
             </div>
             <div className="briefPreview" aria-hidden="true">
               {artworks.slice(0, 3).map((art, index) => (
-                <img src={art.image} alt="" key={art.id} style={{ "--preview-index": index }} />
+                <img src={art.image} alt="" key={art.id} loading="lazy" decoding="async" style={{ "--preview-index": index }} />
               ))}
             </div>
           </div>
@@ -334,10 +409,16 @@ function App() {
                 <span>{art.verse}</span>
                 <h3>{art.name}</h3>
                 <p>{art.detail}</p>
-                <a href={whatsappHref(art.name)} target="_blank" rel="noreferrer">
-                  Falar sobre esta arte
-                  <ArrowUpRight size={16} />
-                </a>
+                <div className="cardActions">
+                  <a className="cardBuy" href={paymentHref(art)} target="_blank" rel="noreferrer">
+                    Comprar
+                    <ShoppingBag size={15} />
+                  </a>
+                  <a className="cardWhats" href={whatsappHref(art.name)} target="_blank" rel="noreferrer">
+                    Tirar d&uacute;vida
+                    <ArrowUpRight size={15} />
+                  </a>
+                </div>
               </div>
             </article>
           ))}
@@ -347,6 +428,46 @@ function App() {
               <button type="button" onClick={() => setSearchTerm("")}>Limpar busca</button>
             </div>
           ) : null}
+        </div>
+      </section>
+
+      <section className="essentialLine" id="essencial">
+        <div className="essentialCopy">
+          <p className="eyebrow">Linha Essencial</p>
+          <h2>Uma porta de entrada para vestir SACERIS.</h2>
+          <p>
+            Uma linha pensada para quem quer preço mais acessível, produção em volume ou uma peça para o dia a dia,
+            usando outro tipo de malha sem misturar com a linha premium.
+          </p>
+          <div className="essentialBadges">
+            <span>Preço mais baixo</span>
+            <span>Outra malha</span>
+            <span>Ideal para grupos</span>
+          </div>
+          <div className="essentialActions">
+            <a className="primaryButton" href={paymentHref(active)} target="_blank" rel="noreferrer">
+              Comprar linha essencial
+              <ShoppingBag size={18} />
+            </a>
+            <a className="ghostButton" href={whatsappHref("linha essencial SACERIS")} target="_blank" rel="noreferrer">
+              Falar sobre a linha
+              <ArrowUpRight size={17} />
+            </a>
+          </div>
+        </div>
+        <div className="essentialGrid" aria-label="Opções da linha essencial">
+          {essentialPieces.map((piece, index) => (
+            <article className="essentialCard" key={piece.name} style={{ "--essential-index": index }}>
+              <div className="essentialImage">
+                <img src={piece.art.image} alt={`Camiseta ${piece.name}`} loading="lazy" decoding="async" />
+              </div>
+              <div>
+                <span>{piece.material}</span>
+                <h3>{piece.name}</h3>
+                <p>{piece.fit}</p>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 

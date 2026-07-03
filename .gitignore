@@ -8,3 +8,4 @@ dist/
 *.png
 !assets/**/*.png
 !jsons_images/**/*.png
+!public/**/*.png
