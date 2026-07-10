@@ -32,11 +32,12 @@ import jesusIsStillKing from "../assets/optimized/jesus_is_still_king.webp";
 import peniel from "../assets/optimized/peniel.webp";
 import theKing from "../assets/optimized/the_king.webp";
 import yeshua33 from "../assets/optimized/yeshua_33.webp";
+import { fetchSanityContent } from "./sanity.js";
 
 const WHATSAPP_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER || "5519982214588";
 const PAYMENT_URL = import.meta.env.VITE_MERCADO_PAGO_URL || "https://mpago.la/19P6WnE";
 
-const products = [
+const fallbackProducts = [
   { id: "still-king", name: "Camiseta Oversized - Jesus Is Still King", price: "R$ 179,90", colors: "1 cor", image: jesusIsStillKing, tag: "Lançamento" },
   { id: "the-king", name: "Camiseta Oversized - The King", price: "R$ 179,90", colors: "1 cor", image: theKing, tag: "Mais vista" },
   { id: "yeshua-33", name: "Camiseta Oversized - Yeshua 33", price: "R$ 169,90", colors: "2 cores", image: yeshua33, tag: "Brasil" },
@@ -46,6 +47,19 @@ const products = [
   { id: "cordeiro", name: "Camiseta Oversized - Cordeiro de Deus", price: "R$ 179,90", colors: "1 cor", image: cordeiroDeDeus, tag: "Clássica" },
   { id: "eli-eli", name: "Camiseta Oversized - Eli Eli", price: "R$ 189,90", colors: "1 cor", image: eliEli, tag: "Arte forte" },
 ];
+
+const fallbackSettings = {
+  heroEyebrow: "Drop cristão autoral",
+  heroTitle: "Streetwear cristão com mensagem.",
+  heroText: "Criamos estampas únicas para camisetas que expressam sua personalidade. SACERIS, estilo que fala por você.",
+  promoMessages: [
+    "Compra segura pelo Mercado Pago.",
+    "Use o WhatsApp para tamanhos, grupos e revenda.",
+    "SACERIS - Fé nas ruas.",
+  ],
+  defaultPaymentUrl: PAYMENT_URL,
+  whatsappNumber: WHATSAPP_NUMBER,
+};
 
 const collections = [
   { name: "Lançamentos", image: jesusIsStillKing },
@@ -62,13 +76,13 @@ const benefits = [
   { icon: CreditCard, title: "Parcelamento", text: "Conforme condições liberadas no checkout." },
 ];
 
-function whatsappHref(subject = "pedido SACERIS") {
+function whatsappHref(subject = "pedido SACERIS", number = WHATSAPP_NUMBER) {
   const text = encodeURIComponent(`Olá, vim pelo site da SACERIS. Quero falar sobre ${subject}.`);
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
+  return `https://wa.me/${number || WHATSAPP_NUMBER}?text=${text}`;
 }
 
-function buyHref(product) {
-  return product?.paymentUrl || PAYMENT_URL;
+function buyHref(product, defaultPaymentUrl = PAYMENT_URL) {
+  return product?.paymentUrl || defaultPaymentUrl || PAYMENT_URL;
 }
 
 function useIntroMusic() {
@@ -123,22 +137,22 @@ function Mark() {
   );
 }
 
-function ProductCard({ product }) {
+function ProductCard({ product, defaultPaymentUrl }) {
   return (
     <article className="productCard">
-      <a className="productMedia" href={buyHref(product)} target="_blank" rel="noreferrer">
-        <span>{product.tag}</span>
-        <img src={product.image} alt={product.name} loading="lazy" decoding="async" />
+      <a className="productMedia" href={buyHref(product, defaultPaymentUrl)} target="_blank" rel="noreferrer">
+        {product.tag ? <span>{product.tag}</span> : null}
+        <img src={product.image} alt={product.imageAlt || product.name} loading="lazy" decoding="async" />
       </a>
       <div className="productInfo">
-        <a href={buyHref(product)} target="_blank" rel="noreferrer">
+        <a href={buyHref(product, defaultPaymentUrl)} target="_blank" rel="noreferrer">
           {product.name}
         </a>
         <div className="productMeta">
           <strong>{product.price}</strong>
           <small>{product.colors}</small>
         </div>
-        <a className="buyButton" href={buyHref(product)} target="_blank" rel="noreferrer">
+        <a className="buyButton" href={buyHref(product, defaultPaymentUrl)} target="_blank" rel="noreferrer">
           Comprar
         </a>
       </div>
@@ -148,12 +162,37 @@ function ProductCard({ product }) {
 
 function App() {
   const [query, setQuery] = useState("");
+  const [cmsContent, setCmsContent] = useState(null);
   const { audioRef, playing, toggle } = useIntroMusic();
+  const settings = cmsContent?.settings || fallbackSettings;
+  const productSource = cmsContent?.products?.length ? cmsContent.products : fallbackProducts;
+  const defaultPaymentUrl = settings.defaultPaymentUrl || PAYMENT_URL;
+  const whatsappNumber = settings.whatsappNumber || WHATSAPP_NUMBER;
+
+  useEffect(() => {
+    let ignore = false;
+
+    fetchSanityContent()
+      .then((content) => {
+        if (!ignore && content) setCmsContent(content);
+      })
+      .catch(() => {
+        if (!ignore) setCmsContent(null);
+      });
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
+
   const filteredProducts = useMemo(() => {
     const term = query.trim().toLowerCase();
-    if (!term) return products;
-    return products.filter((product) => product.name.toLowerCase().includes(term) || product.tag.toLowerCase().includes(term));
-  }, [query]);
+    if (!term) return productSource;
+    return productSource.filter((product) => {
+      const searchable = `${product.name || ""} ${product.tag || ""} ${product.price || ""}`.toLowerCase();
+      return searchable.includes(term);
+    });
+  }, [productSource, query]);
 
   return (
     <main id="inicio">
@@ -182,9 +221,9 @@ function App() {
       </div>
 
       <div className="promoBar">
-        <span>Compra segura pelo Mercado Pago.</span>
-        <span>Use o WhatsApp para tamanhos, grupos e revenda.</span>
-        <span>SACERIS - Fé nas ruas.</span>
+        {(settings.promoMessages?.length ? settings.promoMessages : fallbackSettings.promoMessages).map((message) => (
+          <span key={message}>{message}</span>
+        ))}
       </div>
 
       <header className="siteHeader">
@@ -204,11 +243,11 @@ function App() {
             <Search size={20} />
             Buscar
           </a>
-          <a href={whatsappHref("atendimento")} target="_blank" rel="noreferrer">
+          <a href={whatsappHref("atendimento", whatsappNumber)} target="_blank" rel="noreferrer">
             <UserRound size={20} />
             Atendimento
           </a>
-          <a href={PAYMENT_URL} target="_blank" rel="noreferrer">
+          <a href={defaultPaymentUrl} target="_blank" rel="noreferrer">
             <ShoppingBag size={20} />
             Comprar
           </a>
@@ -220,11 +259,11 @@ function App() {
           <img src={heroImage} alt="Camiseta SACERIS Jesus Is Still King" />
         </div>
         <div className="heroCopy">
-          <p>Drop cristão autoral</p>
-          <h1>Streetwear cristão com mensagem.</h1>
-          <span>Criamos estampas únicas para camisetas que expressam sua personalidade. SACERIS, estilo que fala por você.</span>
+          <p>{settings.heroEyebrow || fallbackSettings.heroEyebrow}</p>
+          <h1>{settings.heroTitle || fallbackSettings.heroTitle}</h1>
+          <span>{settings.heroText || fallbackSettings.heroText}</span>
           <div className="heroButtons">
-            <a className="primaryCta" href={PAYMENT_URL} target="_blank" rel="noreferrer">
+            <a className="primaryCta" href={defaultPaymentUrl} target="_blank" rel="noreferrer">
               Compre agora
               <ChevronRight size={22} />
             </a>
@@ -268,7 +307,7 @@ function App() {
 
         <div className="productGrid">
           {filteredProducts.map((product) => (
-            <ProductCard product={product} key={product.id} />
+            <ProductCard product={product} defaultPaymentUrl={defaultPaymentUrl} key={product.id || product._id} />
           ))}
         </div>
       </section>
@@ -282,7 +321,7 @@ function App() {
             A marca nasce para transformar convicção em imagem: camisetas com leitura urbana, acabamento visual forte e
             mensagem cristã assumida.
           </span>
-          <a href={whatsappHref("SACERIS")} target="_blank" rel="noreferrer">
+          <a href={whatsappHref("SACERIS", whatsappNumber)} target="_blank" rel="noreferrer">
             Fale com a SACERIS
           </a>
         </div>
@@ -294,7 +333,7 @@ function App() {
           <h2>Quer comprar, revender ou montar um pedido para grupo?</h2>
           <p>Fale direto pelo WhatsApp e receba orientação sobre tamanhos, malhas, prazo e pagamento.</p>
         </div>
-        <a href={whatsappHref("revenda ou pedido em grupo")} target="_blank" rel="noreferrer">
+        <a href={whatsappHref("revenda ou pedido em grupo", whatsappNumber)} target="_blank" rel="noreferrer">
           Chamar no WhatsApp
         </a>
       </section>
@@ -308,7 +347,7 @@ function App() {
         </a>
       </footer>
 
-      <a className="whatsappFloat" href={whatsappHref("pedido")} target="_blank" rel="noreferrer" aria-label="Conversar no WhatsApp">
+      <a className="whatsappFloat" href={whatsappHref("pedido", whatsappNumber)} target="_blank" rel="noreferrer" aria-label="Conversar no WhatsApp">
         <MessageCircle size={28} />
       </a>
     </main>

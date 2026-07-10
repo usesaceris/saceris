@@ -6,16 +6,21 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
-    "preview": "vite preview --host 127.0.0.1"
+    "preview": "vite preview --host 127.0.0.1",
+    "studio:dev": "sanity dev --host 127.0.0.1 --port 3333",
+    "studio:deploy": "sanity deploy"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.6.1",
+    "@sanity/vision": "^6.4.0",
     "@vitejs/plugin-react": "^5.0.4",
     "framer-motion": "^12.42.0",
     "lucide-react": "^0.545.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "sanity": "^6.4.0",
+    "styled-components": "^6.4.3",
     "three": "^0.185.0",
     "typescript": "^5.9.3",
     "vite": "^7.1.11"
